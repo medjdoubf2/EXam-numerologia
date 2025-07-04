@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Resultados</h1>
+    <div id="resultado"></div>
+    <button onclick="volver()">Volver</button>
+
+    <script>
+        function mostrarResultado() {
+            const resultado = localStorage.getItem('resultado');
+            document.getElementById('resultado').innerText = `El resultado es: ${resultado}`;
+        }
+
+        function volver() {
+            window.location.href = 'index.html';
+        }
+
+        mostrarResultado();
+    </script>
+</body>
+</html>

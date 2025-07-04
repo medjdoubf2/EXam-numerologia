@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Numerologia</h1>
+    <form id="questionario">
+        <label for="nombres">Escribe tus nombres:</label>
+        <input type="text" id="nombres" required>
+
+        <label for="apellidos">Escribe tus apellidos:</label>
+        <input type="text" id="apellidos" required>
+
+        <label for="fechaNacimiento">Ficha de nacimiento (DD/MM/AAAA):</label>
+        <input type="text" id="fechaNacimiento" required placeholder="Ej: 01/01/2000">
+
+        <label for="anoCalendario">Año calendario:</label>
+        <input type="number" id="anoCalendario" required>
+
+        <h2>¿Qué deseas calcular?</h2>
+        <select id="menu" required>
+            <option value="0">Año calendario</option>
+            <option value="1">Número Personal</option>
+            <option value="2">Número de Destino</option>
+            <option value="3">Número del Nombre</option>
+            <option value="4">Número del Alma</option>
+            <option value="5">Expresión del Alma</option>
+            <option value="6">Proyecto sentido</option>
+            <option value="7">Año Personal</option>
+            <option value="8">Mes Personal</option>
+        </select>
+
+        <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+
+    <script>
+        function calcular() {
+            const nombres = document.getElementById('nombres').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+            const anoCalendario = parseInt(document.getElementById('anoCalendario').value);
+            const menu = document.getElementById('menu').value;
+
+            const diaNacimiento = parseInt(fechaNacimiento.split('/')[0]);
+            const mesNacimiento = parseInt(fechaNacimiento.split('/')[1]);
+            const anioNacimiento = parseInt(fechaNacimiento.split('/')[2]);
+
+            let resultado;
+
+            switch (menu) {
+                case "1":
+                    resultado = reducirADigito(diaNacimiento);
+                    break;
+                case "2":
+                    resultado = sumarFechas(diaNacimiento, mesNacimiento, anioNacimiento);
+                    break;
+                case "3":
+                    resultado = sumarLetras(nombres);
+                    break;
+                case "4":
+                    resultado = sumarVocales(nombres);
+                    break;
+                case "5":
+                    resultado = sumarConsonantes(nombres, apellidos);
+                    break;
+                case "6":
+                    resultado = sumarVocales(nombres);
+                    break;
+                case "7":
+                    resultado = anoCalendario + diaNacimiento + mesNacimiento;
+                    break;
+                case "8":
+                    resultado = (anoCalendario + diaNacimiento + mesNacimiento) + mesNacimiento;
+                    break;
+                default:
+                    resultado = "Opción no válida.";
+            }
+
+            localStorage.setItem('resultado', resultado);
+            window.location.href = 'resultado.html';
+        }
+
+        function reducirADigito(num) {
+            while (num > 9) {
+                num = num.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            }
+            return num;
+        }
+
+        function sumarFechas(dia, mes, anio) {
+            return dia + mes + anio;
+        }
+
+        function sumarLetras(nombre) {
+            return nombre.replace(/ /g, '').length; // Suma de letras
+        }
+
+        function sumarVocales(nombre) {
+            return (nombre.match(/[aeiouáéíóú]/gi) || []).length;
+        }
+
+        function sumarConsonantes(nombres, apellidos) {
+            const totalLetras = nombres.replace(/ /g, '').length + apellidos.replace(/ /g, '').length;
+            const totalVocales = sumarVocales(nombres) + sumarVocales(apellidos);
+            return totalLetras - totalVocales;
+        }
+    </script>
+</body>
+</html>

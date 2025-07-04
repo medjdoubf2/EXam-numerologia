@@ -1,0 +1,37 @@
+body {
+    background-image: url(img/EXPRESION-DEL-ALMA-6.png);
+    font-family:'Times New Roman', Times, serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #2be1e1;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input, select {
+    color: rgb(15, 210, 240);
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: rgb(15, 210, 240);
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e346b4;
+}
